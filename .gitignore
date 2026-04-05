@@ -1,0 +1,13 @@
+.next
+node_modules
+out
+dist
+.DS_Store
+*.log
+next-env.d.ts
+.vercel
+.env.local
+tsconfig.tsbuildinfo
+Sejin_Wedding_HQ
+korean-invitation
+supabase/.temp

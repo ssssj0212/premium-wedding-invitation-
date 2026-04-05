@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-background: #f4efe7;
+  --color-surface: rgba(255, 250, 244, 0.82);
+  --color-text: #201913;
+  --color-muted: #6e655c;
+  --color-accent: #d06b38;
+  --color-accent-soft: #ffe1d2;
+  --color-income: #0f9d84;
+  --color-expense: #d34836;
+  --color-line: rgba(76, 55, 39, 0.12);
+  --phone-width: 430px;
+  --font-sans: "Noto Sans KR", sans-serif;
+  --font-serif: "Noto Serif KR", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.92), transparent 32%),
+    linear-gradient(180deg, #fbf7f1 0%, #f5ede5 46%, #efe5da 100%);
+  color: var(--color-text);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(208, 107, 56, 0.2);
+}
+
+.app-frame {
+  width: min(100%, var(--phone-width));
+  min-height: 100vh;
+  margin: 0 auto;
+  position: relative;
+  background:
+    radial-gradient(circle at top right, rgba(255, 220, 203, 0.8), transparent 24%),
+    linear-gradient(180deg, rgba(255, 252, 248, 0.96), rgba(250, 245, 240, 0.92));
+  box-shadow:
+    0 30px 100px rgba(78, 58, 40, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.glass-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 248, 242, 0.82)),
+    rgba(255, 255, 255, 0.66);
+  border: 1px solid rgba(90, 64, 39, 0.08);
+  box-shadow:
+    0 12px 28px rgba(88, 61, 44, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(18px);
+}
+
+.soft-divider {
+  border-top: 1px solid rgba(76, 55, 39, 0.08);
+}
+
+.headline {
+  font-family: var(--font-serif);
+  letter-spacing: -0.03em;
+}
+
+.tab-shadow {
+  box-shadow: 0 10px 32px rgba(50, 36, 25, 0.14);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
