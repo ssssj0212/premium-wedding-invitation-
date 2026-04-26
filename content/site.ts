@@ -30,6 +30,7 @@ const siteSchema = z.object({
   rsvp: z.object({
     title: z.string(),
     description: z.string(),
+    buttonLabel: z.string(),
     contactEmail: z.string().optional().default(""),
     contactPhone: z.string().optional().default("")
   }),
@@ -54,10 +55,9 @@ export const siteContent = validateContent(siteSchema, {
   },
   hero: {
     kicker: "With great joy",
-    subtitle:
-      "Together with our families, we warmly invite you to join us for our wedding luncheon and celebration.",
+    subtitle: "",
     invitationLine:
-      "We would be honored to celebrate this joyful day with you over lunch, photographs, and a beautiful afternoon together."
+      "We warmly invite you to join us for our wedding luncheon and celebration."
   },
   event: {
     date: "2026-06-13",
@@ -73,18 +73,20 @@ export const siteContent = validateContent(siteSchema, {
   },
   links: {
     mapUrl: "https://maps.google.com/?q=398+9th+Ave+New+York+NY+10001",
-    rsvpUrl: ""
+    rsvpUrl:
+      "https://docs.google.com/forms/d/e/1FAIpQLSc8v72lmeqbTJnnHxrAZzCCHPhWCyyd5-bbhuO1HWG-FLqHVw/viewform?usp=header"
   },
   rsvp: {
-    title: "RSVP",
-    description: "Add your RSVP form link, email, or phone later to enable this section.",
+    title: "Please use this button to let us know if you will attend.",
+    description: "We would appreciate your response to help us prepare for the day.",
+    buttonLabel: "Submit RSVP",
     contactEmail: "",
     contactPhone: ""
   },
   features: {
     showGiftSection: false,
     expandGiftSectionByDefault: false,
-    showRsvpSection: false,
+    showRsvpSection: true,
     enableBackgroundMusic: false
   },
   audio: {

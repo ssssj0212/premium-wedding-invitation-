@@ -1,23 +1,35 @@
 import type { Metadata } from "next";
-import { Noto_Sans_KR, Noto_Serif_KR } from "next/font/google";
 import "./globals.css";
-
-const sans = Noto_Sans_KR({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "700"]
-});
-
-const serif = Noto_Serif_KR({
-  subsets: ["latin"],
-  variable: "--font-serif",
-  weight: ["500", "700"]
-});
+import { metaContent } from "@/content/meta";
 
 export const metadata: Metadata = {
-  title: "Pocket Ledger",
-  description: "월별 계산이 흔들리지 않는 모바일 전용 가계부",
-  metadataBase: new URL("http://localhost:3000")
+  metadataBase: new URL(metaContent.siteUrl),
+  title: metaContent.title,
+  description: metaContent.description,
+  keywords: metaContent.keywords,
+  openGraph: {
+    title: metaContent.ogTitle,
+    description: metaContent.ogDescription,
+    type: "website",
+    url: metaContent.siteUrl,
+    images: [
+      {
+        url: metaContent.ogImage,
+        width: 1200,
+        height: 630,
+        alt: metaContent.ogImageAlt
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: metaContent.ogTitle,
+    description: metaContent.ogDescription,
+    images: [metaContent.ogImage]
+  },
+  alternates: {
+    canonical: metaContent.siteUrl
+  }
 };
 
 export default function RootLayout({
@@ -26,8 +38,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko">
-      <body className={`${sans.variable} ${serif.variable}`}>{children}</body>
+    <html lang={metaContent.locale} suppressHydrationWarning>
+      <body>{children}</body>
     </html>
   );
 }

@@ -18,16 +18,16 @@ export const contactContent = validateContent(contactSchema, {
     {
       role: "Groom",
       name: "Sejin Shin",
-      phone: "+1 212-555-0139",
+      phone: "",
       zelle: "add-sejin-zelle@example.com",
-      note: "Replace this with Sejin's real phone number and Zelle details."
+      note: ""
     },
     {
       role: "Bride",
       name: "Shinhye Kim",
-      phone: "+1 212-555-0174",
+      phone: "",
       zelle: "add-shinhye-zelle@example.com",
-      note: "Replace this with Shinhye's real phone number and Zelle details."
+      note: ""
     }
   ]
 });

@@ -189,9 +189,7 @@ export function BudgetTrackerApp({ initialEmail }: BudgetTrackerAppProps) {
     });
 
     setAuthBusy(false);
-    setMessage(
-      error ? "로그인 메일 전송에 실패했어요. 이메일 주소를 다시 확인해주세요." : "로그인 링크를 이메일로 보냈어요."
-    );
+    setMessage(getAuthMessage(error));
   }
 
   async function signOut() {
@@ -628,6 +626,31 @@ export function BudgetTrackerApp({ initialEmail }: BudgetTrackerAppProps) {
       </nav>
     </main>
   );
+}
+
+function getAuthMessage(
+  error: {
+    code?: string;
+    message?: string;
+  } | null
+) {
+  if (!error) {
+    return "로그인 링크를 이메일로 보냈어요. 받은편지함과 스팸함을 확인해주세요.";
+  }
+
+  if (error.code === "over_email_send_rate_limit") {
+    return "로그인 메일을 너무 자주 요청해서 잠시 막혔어요. 조금 기다린 뒤 다시 시도하거나, 이미 받은 가장 최근 로그인 메일을 열어주세요.";
+  }
+
+  if (error.code === "email_address_invalid") {
+    return "이메일 형식이 올바르지 않아요. 주소를 다시 확인해주세요.";
+  }
+
+  if (error.message?.toLowerCase().includes("redirect")) {
+    return "로그인 복귀 주소 설정이 아직 맞지 않아요. 제가 Supabase 설정을 더 확인해볼게요.";
+  }
+
+  return "로그인 메일 전송에 실패했어요. 잠시 뒤 다시 시도해주세요.";
 }
 
 function SummaryCard({

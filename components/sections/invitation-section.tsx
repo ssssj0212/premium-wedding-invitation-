@@ -20,7 +20,7 @@ export function InvitationSection() {
           {siteContent.couple.groomName} &amp; {siteContent.couple.brideName}
         </p>
         <div className="mx-auto mt-6 h-px w-24 bg-[linear-gradient(90deg,transparent,rgba(184,143,115,0.55),transparent)]" />
-        <div className="balanced-copy mt-8 space-y-5 text-[14px] leading-7 text-muted sm:text-[15px] sm:leading-8">
+        <div className="balanced-copy editorial-body mt-8 space-y-5">
           {storyContent.messageParagraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

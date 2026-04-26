@@ -10,6 +10,7 @@ type ImageCardProps = {
   alt: string;
   priority?: boolean;
   className?: string;
+  imageClassName?: string;
   fill?: boolean;
   sizes?: string;
   fallbackMode?: "default" | "minimal";
@@ -20,6 +21,7 @@ export function ImageCard({
   alt,
   priority,
   className,
+  imageClassName,
   fill = true,
   sizes = "(max-width: 768px) 100vw, 50vw",
   fallbackMode = "default"
@@ -45,13 +47,7 @@ export function ImageCard({
           className
         )}
       >
-        <div className="flex max-w-[200px] flex-col items-center gap-3 px-4">
-          <ImageIcon className="h-8 w-8 text-accent" />
-          <div>
-            <p className="text-sm font-medium text-text">Replace with your photo</p>
-            <p className="mt-1 text-xs leading-5 text-muted">Drop the matching file into `/public/photos`.</p>
-          </div>
-        </div>
+        <ImageIcon className="h-8 w-8 text-accent/85" />
       </div>
     );
   }
@@ -64,7 +60,10 @@ export function ImageCard({
         fill={fill}
         priority={priority}
         sizes={sizes}
-        className="object-cover transition duration-700 ease-out hover:scale-[1.02]"
+        className={cn(
+          "object-cover transition duration-700 ease-out hover:scale-[1.02]",
+          imageClassName
+        )}
         onError={() => setFailed(true)}
       />
     </div>

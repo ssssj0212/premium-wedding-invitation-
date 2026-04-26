@@ -17,7 +17,7 @@ export function ContactSection({ contacts }: ContactSectionProps) {
         description="Direct phone and optional Zelle details for the day."
         align="center"
       />
-      <div className="mt-8 grid gap-4 md:grid-cols-2">
+      <div className="mx-auto mt-8 grid w-full max-w-2xl gap-4 lg:max-w-none lg:grid-cols-2">
         {contacts.map((contact) => (
           <div
             key={`${contact.role}-${contact.name}`}
@@ -28,7 +28,9 @@ export function ContactSection({ contacts }: ContactSectionProps) {
               <p className="text-xs uppercase tracking-[0.24em]">{contact.role}</p>
             </div>
             <p className="mt-4 text-lg font-semibold text-text">{contact.name}</p>
-            <p className="mt-2 break-all text-sm font-medium text-[#b35f48]">{contact.phone}</p>
+            {contact.phone ? (
+              <p className="mt-2 break-all text-sm font-medium text-[#b35f48]">{contact.phone}</p>
+            ) : null}
             {contact.note ? <p className="mt-3 text-sm leading-7 text-muted">{contact.note}</p> : null}
             {contact.zelle ? (
               <div className="editorial-divider mt-4 pt-4">
@@ -36,8 +38,8 @@ export function ContactSection({ contacts }: ContactSectionProps) {
                 <p className="mt-3 break-all text-sm font-medium text-[#b35f48]">{contact.zelle}</p>
               </div>
             ) : null}
-            <div className="mt-4 flex flex-wrap gap-3">
-              <CopyButton value={contact.phone} label="Copy Number" />
+            <div className="mt-4 grid gap-3">
+              {contact.phone ? <CopyButton value={contact.phone} label="Copy Number" /> : null}
               {contact.zelle ? <CopyButton value={contact.zelle} label="Copy Zelle" /> : null}
             </div>
           </div>

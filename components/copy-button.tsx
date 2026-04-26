@@ -38,7 +38,7 @@ export function CopyButton({ value, label = "Copy" }: CopyButtonProps) {
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex items-center gap-2 rounded-full border border-[rgba(88,74,64,0.08)] bg-white/88 px-3.5 py-2.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-text transition duration-500 hover:border-accent/40 hover:text-accent"
+      className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-text px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#fff8f2] transition duration-500 hover:bg-[#4c3f35] sm:px-5 sm:py-3"
     >
       {copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
       <span>{copied ? "Copied" : label}</span>
