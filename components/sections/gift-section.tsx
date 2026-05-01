@@ -108,7 +108,7 @@ export function GiftSection() {
       id="gift"
       className="bg-[linear-gradient(180deg,rgba(255,250,246,0.96),rgba(249,242,235,0.93))]"
     >
-      <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div className="flex flex-col gap-6">
         <SectionHeading
           eyebrow="Gift Information"
           title={accountsContent.title}

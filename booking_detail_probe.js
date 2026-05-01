@@ -1,0 +1,21 @@
+const { chromium } = require('playwright');
+(async() => {
+  const browser = await chromium.launch({headless:true});
+  const page = await browser.newPage({ locale:'en-US', timezoneId:'America/New_York', userAgent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36' });
+  page.setDefaultTimeout(90000);
+  const url = 'https://www.booking.com/searchresults.html?ss=Waikiki%20Resort%20Hotel%2C%20Waikiki&checkin=2026-06-14&checkout=2026-06-19&group_adults=2&no_rooms=1&group_children=0';
+  await page.goto(url, {waitUntil:'domcontentloaded'});
+  await page.waitForTimeout(6000);
+  const card = page.locator('[data-testid="property-card"]').first();
+  console.log('card exists', await card.count());
+  const link = card.locator('a').first();
+  console.log('href', await link.getAttribute('href'));
+  console.log('text', (await card.innerText()).slice(0,1200));
+  await link.click();
+  await page.waitForTimeout(8000);
+  console.log('detail url', page.url());
+  console.log('title', await page.title());
+  const body = await page.locator('body').innerText();
+  console.log(body.slice(0,3000));
+  await browser.close();
+})();

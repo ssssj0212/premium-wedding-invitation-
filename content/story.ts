@@ -8,11 +8,11 @@ const storySchema = z.object({
 });
 
 export const storyContent = validateContent(storySchema, {
-  invitationTitle: "We warmly invite you to celebrate our wedding day.",
+  invitationTitle: "",
   invitationSubtitle: "",
   messageParagraphs: [
-    "With grateful hearts, we are delighted to invite you to celebrate our marriage.",
-    "Please join us for a joyful lunch, warm conversation, and a beautiful afternoon together.",
-    "Having you with us on Saturday, June 13, 2026 would mean so much as we begin this new chapter."
+    "With grateful hearts, we are happy to share that we were married in an intimate ceremony with our families on June 4, 2026.",
+    "To continue the celebration, we would be honored to have our close friends and loved ones join us for a wedding luncheon.",
+    "Your presence would mean so much to us as we celebrate this special season together."
   ]
 });

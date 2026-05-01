@@ -28,6 +28,21 @@ npm run dev
 
 브라우저에서 [http://localhost:3000](http://localhost:3000) 을 열면 됩니다.
 
+## RSVP 저장 연결
+
+커스텀 RSVP 화면은 외부 설문 페이지를 열지 않고, 사이트의 `/api/rsvp`를 통해 Google Apps Script Web App으로 저장합니다. 실제 저장 성공 응답을 받은 경우에만 Thank You 화면이 표시됩니다.
+
+1. [`/Users/sejin/Documents/project/docs/rsvp-google-apps-script.js`](/Users/sejin/Documents/project/docs/rsvp-google-apps-script.js) 내용을 Google Apps Script의 `Code.gs`에 붙여넣습니다.
+2. Apps Script에서 `Deploy > New deployment > Web app`으로 배포합니다.
+3. 배포 설정은 `Execute as: Me`, `Who has access: Anyone`으로 선택합니다.
+4. 생성된 Web app URL을 `.env.local`과 Vercel 환경 변수에 넣습니다.
+
+```bash
+RSVP_ENDPOINT=YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL
+```
+
+`NEXT_PUBLIC_RSVP_ENDPOINT`도 지원하지만, URL을 브라우저에 노출하지 않도록 `RSVP_ENDPOINT` 사용을 권장합니다.
+
 ## Supabase 연결
 
 1. [Supabase](https://supabase.com/pricing) 에서 새 프로젝트를 만듭니다.

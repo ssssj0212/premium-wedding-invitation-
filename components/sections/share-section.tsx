@@ -11,7 +11,7 @@ import { SectionShell } from "@/components/section-shell";
 export function ShareSection() {
   const shareUrl = metaContent.siteUrl;
   const [showFallbackOptions, setShowFallbackOptions] = useState(false);
-  const shareText = `${siteContent.hero.invitationLine} ${shareUrl}`;
+  const shareText = shareUrl;
   const smsHref = `sms:?&body=${encodeURIComponent(shareText)}`;
   const emailHref = `mailto:?subject=${encodeURIComponent(metaContent.ogTitle)}&body=${encodeURIComponent(shareText)}`;
 
@@ -22,15 +22,11 @@ export function ShareSection() {
 
     try {
       const sharePayload = {
-        title: metaContent.ogTitle,
-        text: siteContent.hero.invitationLine,
         url: shareUrl
       };
 
       if (navigator.share && (!navigator.canShare || navigator.canShare(sharePayload))) {
         await navigator.share({
-          title: sharePayload.title,
-          text: sharePayload.text,
           url: sharePayload.url
         });
         setShowFallbackOptions(false);
@@ -57,7 +53,7 @@ export function ShareSection() {
           <button
             type="button"
             onClick={handleShare}
-            className="inline-flex items-center gap-2 rounded-full bg-text px-4 py-3 text-sm font-semibold text-[#fff8f2]"
+            className="btn-secondary inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[15px] font-semibold"
           >
             <Share2 className="h-4 w-4" />
             Share
@@ -69,14 +65,14 @@ export function ShareSection() {
         <div className="mt-5 flex flex-wrap justify-center gap-3">
           <a
             href={smsHref}
-            className="inline-flex items-center gap-2 rounded-full border border-[rgba(88,74,64,0.08)] bg-white/88 px-4 py-3 text-sm font-semibold text-text transition duration-500 hover:border-accent/40 hover:text-accent"
+            className="btn-secondary inline-flex items-center gap-2 rounded-full px-4 py-3 text-[15px] font-semibold transition"
           >
             <MessageCircleMore className="h-4 w-4" />
             Messages
           </a>
           <a
             href={emailHref}
-            className="inline-flex items-center gap-2 rounded-full border border-[rgba(88,74,64,0.08)] bg-white/88 px-4 py-3 text-sm font-semibold text-text transition duration-500 hover:border-accent/40 hover:text-accent"
+            className="btn-secondary inline-flex items-center gap-2 rounded-full px-4 py-3 text-[15px] font-semibold transition"
           >
             <Mail className="h-4 w-4" />
             Email

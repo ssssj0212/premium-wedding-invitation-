@@ -11,12 +11,13 @@ import { InfoSection } from "@/components/sections/info-section";
 import { InvitationSection } from "@/components/sections/invitation-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { RsvpSection } from "@/components/sections/rsvp-section";
+import { AdditionalInfoSection } from "@/components/sections/additional-info-section";
 import { StickyNav } from "@/components/sticky-nav";
 
 export function PageShell() {
   return (
     <main
-      className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-[clamp(0.75rem,3.2vw,2rem)] pb-[clamp(3rem,8vw,4rem)] pt-[clamp(0.75rem,3vw,1rem)] text-text"
+      className="mx-auto flex min-h-[100svh] w-full max-w-[430px] flex-col px-3 pb-16 pt-4 text-text sm:px-4"
       style={
         {
           ["--color-accent" as string]: siteContent.theme.accentColor
@@ -36,6 +37,7 @@ export function PageShell() {
           <GiftSection />
         ) : null}
         {faqContent.items.length > 0 ? <FaqSection items={faqContent.items} /> : null}
+        <AdditionalInfoSection />
       </div>
     </main>
   );

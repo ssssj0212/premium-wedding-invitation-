@@ -12,12 +12,12 @@ export function ContactSection({ contacts }: ContactSectionProps) {
   return (
     <SectionShell id="contacts">
       <SectionHeading
-        eyebrow="Contact"
-        title="If you need any help on the day."
-        description="Direct phone and optional Zelle details for the day."
+        eyebrow="Registry & Gifts"
+        title="Your presence at our celebration is the greatest gift."
+        description="If you would still like to send a gift, our Zelle information is listed below."
         align="center"
       />
-      <div className="mx-auto mt-8 grid w-full max-w-2xl gap-4 lg:max-w-none lg:grid-cols-2">
+      <div className="mx-auto mt-8 grid w-full max-w-full gap-4">
         {contacts.map((contact) => (
           <div
             key={`${contact.role}-${contact.name}`}
@@ -27,7 +27,7 @@ export function ContactSection({ contacts }: ContactSectionProps) {
               <Phone className="h-4 w-4" />
               <p className="text-xs uppercase tracking-[0.24em]">{contact.role}</p>
             </div>
-            <p className="mt-4 text-lg font-semibold text-text">{contact.name}</p>
+            <p className="mt-4 text-lg font-medium text-text">{contact.name}</p>
             {contact.phone ? (
               <p className="mt-2 break-all text-sm font-medium text-[#b35f48]">{contact.phone}</p>
             ) : null}
@@ -35,7 +35,7 @@ export function ContactSection({ contacts }: ContactSectionProps) {
             {contact.zelle ? (
               <div className="editorial-divider mt-4 pt-4">
                 <p className="luxury-kicker text-muted">Zelle</p>
-                <p className="mt-3 break-all text-sm font-medium text-[#b35f48]">{contact.zelle}</p>
+                <p className="mt-3 break-all text-sm font-medium text-accent">{contact.zelle}</p>
               </div>
             ) : null}
             <div className="mt-4 grid gap-3">

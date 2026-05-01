@@ -14,21 +14,24 @@ export const photosContent = validateContent(photosSchema, {
   photos: [
     {
       src: "/photos/hero-1.jpg",
-      alt: "Couple portrait for the wedding invitation hero"
+      alt: "Wedding invitation hero portrait"
     },
-    { src: "/photos/gallery-1.jpg", alt: "Standing together on the Brooklyn Bridge" },
-    { src: "/photos/gallery-2.jpg", alt: "A black and white kiss beneath the bridge" },
-    { src: "/photos/gallery-3.jpg", alt: "A joyful kiss on the bridge" },
-    { src: "/photos/gallery-4.jpg", alt: "Holding hands on the Brooklyn Bridge" },
-    { src: "/photos/gallery-5.jpg", alt: "Waving together near the bridge" },
-    { src: "/photos/gallery-6.jpg", alt: "Walking together under the bridge" },
-    { src: "/photos/gallery-7.jpg", alt: "Smiling together with flowers" },
-    { src: "/photos/gallery-8.jpg", alt: "A wide portrait on the Brooklyn Bridge" },
-    { src: "/photos/gallery-9.jpg", alt: "A playful portrait under the bridge" },
-    { src: "/photos/gallery-10.jpg", alt: "A wide bridge portrait with the city skyline" },
-    { src: "/photos/gallery-11.jpg", alt: "A lifted portrait on the bridge" },
-    { src: "/photos/gallery-12.jpg", alt: "A carousel moment by the waterfront" },
-    { src: "/photos/gallery-13.jpg", alt: "A quiet kiss on the bridge" }
+    { src: "/photos/gallery-1.jpg", alt: "Wedding gallery photo 1" },
+    { src: "/photos/gallery-2.jpg", alt: "Wedding gallery photo 2" },
+    { src: "/photos/gallery-3.jpg", alt: "Wedding gallery photo 3" },
+    { src: "/photos/gallery-4.jpg", alt: "Wedding gallery photo 4" },
+    { src: "/photos/gallery-5.jpg", alt: "Wedding gallery photo 5" },
+    { src: "/photos/gallery-6.jpg", alt: "Wedding gallery photo 6" },
+    { src: "/photos/gallery-7.jpg", alt: "Wedding gallery photo 7" },
+    { src: "/photos/gallery-8.jpg", alt: "Wedding gallery photo 8" },
+    { src: "/photos/gallery-9.jpg", alt: "Wedding gallery photo 9" },
+    { src: "/photos/gallery-10.jpg", alt: "Wedding gallery photo 10" },
+    { src: "/photos/gallery-11.jpg", alt: "Wedding gallery photo 11" },
+    { src: "/photos/gallery-12.jpg", alt: "Wedding gallery photo 12" },
+    { src: "/photos/gallery-13.jpg", alt: "Wedding gallery photo 13" },
+    { src: "/photos/gallery-14.jpg", alt: "Wedding gallery photo 14" },
+    { src: "/photos/gallery-15.jpg", alt: "Wedding gallery photo 15" },
+    { src: "/photos/gallery-16.jpg", alt: "Wedding gallery photo 16" }
   ]
 });
 

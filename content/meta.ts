@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { validateContent } from "@/lib/content";
-import { heroPhoto } from "@/content/photos";
 
 const metaSchema = z.object({
   title: z.string(),
@@ -22,7 +21,7 @@ export const metaContent = validateContent(metaSchema, {
   locale: "en",
   ogTitle: "Sejin Shin & Shinhye Kim | Wedding Invitation",
   ogDescription: "Join us as we celebrate our wedding day with love, warmth, and gratitude.",
-  ogImage: heroPhoto.src || "/opengraph-image",
+  ogImage: "https://sejinshinhye-wedding.vercel.app/og/share-preview.jpg?v=20260427",
   ogImageAlt: "Wedding invitation preview image",
   keywords: ["wedding invitation", "mobile wedding invitation", "Korean wedding invitation", "modern wedding website"]
 });

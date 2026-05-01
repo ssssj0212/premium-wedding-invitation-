@@ -14,6 +14,7 @@ type ImageCardProps = {
   fill?: boolean;
   sizes?: string;
   fallbackMode?: "default" | "minimal";
+  onImageReady?: () => void;
 };
 
 export function ImageCard({
@@ -24,7 +25,8 @@ export function ImageCard({
   imageClassName,
   fill = true,
   sizes = "(max-width: 768px) 100vw, 50vw",
-  fallbackMode = "default"
+  fallbackMode = "default",
+  onImageReady
 }: ImageCardProps) {
   const [failed, setFailed] = useState(false);
 
@@ -59,11 +61,13 @@ export function ImageCard({
         alt={alt}
         fill={fill}
         priority={priority}
+        fetchPriority={priority ? "high" : undefined}
         sizes={sizes}
         className={cn(
-          "object-cover transition duration-700 ease-out hover:scale-[1.02]",
+          "object-contain transition duration-700 ease-out",
           imageClassName
         )}
+        onLoad={onImageReady}
         onError={() => setFailed(true)}
       />
     </div>

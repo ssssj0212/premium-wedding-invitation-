@@ -19,14 +19,14 @@ export const contactContent = validateContent(contactSchema, {
       role: "Groom",
       name: "Sejin Shin",
       phone: "",
-      zelle: "add-sejin-zelle@example.com",
+      zelle: "347-449-2534",
       note: ""
     },
     {
       role: "Bride",
       name: "Shinhye Kim",
       phone: "",
-      zelle: "add-shinhye-zelle@example.com",
+      zelle: "646-419-0220",
       note: ""
     }
   ]

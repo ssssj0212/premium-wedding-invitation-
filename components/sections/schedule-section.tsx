@@ -18,11 +18,11 @@ export function ScheduleSection({ items }: ScheduleSectionProps) {
         {items.map((item, index) => (
           <div
             key={`${item.time}-${item.title}`}
-            className="grid gap-4 rounded-[24px] border border-[rgba(88,74,64,0.08)] bg-[rgba(255,252,248,0.8)] p-5 sm:grid-cols-[240px_1fr] sm:items-start md:grid-cols-[250px_1fr]"
+            className="grid gap-4 rounded-[24px] border border-[rgba(88,74,64,0.08)] bg-[rgba(255,252,248,0.8)] p-5"
           >
             <div className="rounded-[18px] bg-[rgba(184,143,115,0.10)] px-4 py-3">
               <p className="text-[11px] font-semibold uppercase tracking-[0.24em] text-accent">Time</p>
-              <p className="mt-2 whitespace-nowrap font-serif text-[1.04rem] leading-tight tracking-[-0.02em] text-text sm:text-[1.12rem] md:text-[1.18rem] lg:text-[1.24rem]">
+              <p className="mt-2 whitespace-nowrap font-serif text-[clamp(1.04rem,4.8vw,1.16rem)] leading-tight tracking-[-0.02em] text-text">
                 {item.time}
               </p>
             </div>

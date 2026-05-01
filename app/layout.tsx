@@ -1,6 +1,21 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { metaContent } from "@/content/meta";
+
+const headingFont = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-heading",
+  display: "swap"
+});
+
+const bodyFont = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(metaContent.siteUrl),
@@ -17,7 +32,8 @@ export const metadata: Metadata = {
         url: metaContent.ogImage,
         width: 1200,
         height: 630,
-        alt: metaContent.ogImageAlt
+        alt: metaContent.ogImageAlt,
+        type: "image/jpeg"
       }
     ]
   },
@@ -39,7 +55,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={metaContent.locale} suppressHydrationWarning>
-      <body>{children}</body>
+      <body className={`${headingFont.variable} ${bodyFont.variable}`}>{children}</body>
     </html>
   );
 }

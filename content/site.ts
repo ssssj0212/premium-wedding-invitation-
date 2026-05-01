@@ -34,6 +34,15 @@ const siteSchema = z.object({
     contactEmail: z.string().optional().default(""),
     contactPhone: z.string().optional().default("")
   }),
+  additionalInfo: z.object({
+    title: z.string(),
+    items: z.array(
+      z.object({
+        label: z.string(),
+        value: z.string()
+      })
+    )
+  }),
   features: z.object({
     showGiftSection: z.boolean(),
     expandGiftSectionByDefault: z.boolean(),
@@ -56,15 +65,14 @@ export const siteContent = validateContent(siteSchema, {
   hero: {
     kicker: "With great joy",
     subtitle: "",
-    invitationLine:
-      "We warmly invite you to join us for our wedding luncheon and celebration."
+    invitationLine: "We warmly invite you to our wedding luncheon."
   },
   event: {
     date: "2026-06-13",
     time: "11:30",
     venue: "Avra 33rd & Ninth",
     address: "398 9th Ave, New York, NY 10001",
-    note: "Please arrive by 11:30 AM and kindly avoid being late so we may begin together on time.",
+    note: "Please plan to arrive by 11:30 AM so we can begin the luncheon together on time.",
     dressCode: "",
     timezoneLabel: "Eastern Time (ET)"
   },
@@ -73,15 +81,35 @@ export const siteContent = validateContent(siteSchema, {
   },
   links: {
     mapUrl: "https://maps.google.com/?q=398+9th+Ave+New+York+NY+10001",
-    rsvpUrl:
-      "https://docs.google.com/forms/d/e/1FAIpQLSc8v72lmeqbTJnnHxrAZzCCHPhWCyyd5-bbhuO1HWG-FLqHVw/viewform?usp=header"
+    rsvpUrl: "https://sejinshinhye-wedding.vercel.app/rsvp"
   },
   rsvp: {
-    title: "Please use this button to let us know if you will attend.",
-    description: "We would appreciate your response to help us prepare for the day.",
-    buttonLabel: "Submit RSVP",
+    title: "Please let us know if you can join us.",
+    description: "",
+    buttonLabel: "RSVP",
     contactEmail: "",
     contactPhone: ""
+  },
+  additionalInfo: {
+    title: "Info",
+    items: [
+      {
+        label: "Dress Code",
+        value: "Semi-formal"
+      },
+      {
+        label: "Transportation",
+        value: "Nearby transit:\nPenn Station / Moynihan Train Hall\nAmtrak, LIRR, NJ Transit\n\nSubway:\nA/C/E, 1/2/3, 7"
+      },
+      {
+        label: "Parking",
+        value: ""
+      },
+      {
+        label: "Questions?",
+        value: "347-449-2534"
+      }
+    ]
   },
   features: {
     showGiftSection: false,
@@ -93,7 +121,7 @@ export const siteContent = validateContent(siteSchema, {
     src: "/audio/bgm.mp3"
   },
   theme: {
-    accentColor: "#b88f73"
+    accentColor: "#7a6250"
   }
 });
 

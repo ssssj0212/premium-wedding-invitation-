@@ -25,20 +25,20 @@ export function CountdownSection() {
 
   return (
     <SectionShell id="countdown" className="overflow-hidden">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-full">
         <SectionHeading
           eyebrow="Countdown"
           title={countdown.isPast ? "The celebration has begun." : "Counting down to our wedding day."}
           description={siteContent.countdown.message}
           align="center"
         />
-        <div className="mt-8 grid grid-cols-4 gap-3">
+        <div className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {countdown.parts.map((part) => (
             <div
               key={part.label}
-              className="rounded-[24px] border border-line/80 bg-white/80 px-4 py-5 text-center"
+              className="rounded-[24px] border border-line/80 bg-white/80 px-3 py-5 text-center"
             >
-              <p className="font-serif text-4xl leading-none text-text sm:text-5xl">{part.value}</p>
+              <p className="font-serif text-[clamp(2rem,12vw,3rem)] leading-none text-text">{part.value}</p>
               <p className="mt-2 text-[11px] uppercase tracking-[0.24em] text-muted">{part.label}</p>
             </div>
           ))}

@@ -56,33 +56,33 @@ export function GallerySection({ photos }: GallerySectionProps) {
     <SectionShell id="gallery">
       <SectionHeading
         eyebrow="Gallery"
-        title="A few frames from our season together."
+        title=""
         description=""
         align="center"
       />
 
-      <div className="mt-8 grid gap-4 lg:grid-cols-[1.02fr_0.98fr] lg:items-stretch">
+      <div className="mt-8 grid gap-4">
         <motion.button
           key={activePhoto.src || `${currentActiveIndex}`}
           type="button"
           initial={{ opacity: 0.75, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="group relative mx-auto w-fit max-w-full overflow-hidden rounded-[30px] border border-[rgba(88,74,64,0.08)] bg-[linear-gradient(180deg,rgba(255,253,250,0.98),rgba(244,236,228,0.96))] p-1.5 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.55)]"
+          className="group relative overflow-hidden rounded-[30px] text-left"
         >
-          <div className="flex min-h-[340px] items-center justify-center sm:min-h-[430px] lg:min-h-[540px]">
+          <div className="flex min-h-[320px] items-center justify-center sm:min-h-[390px]">
             <img
               src={activePhoto.src}
               alt={activePhoto.alt}
-              className="block h-auto max-h-[calc(340px-1.5rem)] w-auto max-w-full rounded-[24px] object-contain sm:max-h-[calc(430px-1.5rem)] lg:max-h-[calc(540px-1.5rem)]"
-              loading="eager"
+              className="block h-auto max-h-[319px] w-auto max-w-full rounded-[24px] object-contain sm:max-h-[389px]"
+              loading="lazy"
               decoding="async"
             />
           </div>
         </motion.button>
 
         <div className="flex min-h-full flex-col gap-4">
-          <div className="grid grid-cols-2 gap-3 lg:flex-1">
+          <div className="grid grid-cols-2 gap-3">
             {visibleThumbs.map(({ photo, index }) => {
               const isActive = index === currentActiveIndex;
 
@@ -93,28 +93,17 @@ export function GallerySection({ photos }: GallerySectionProps) {
                   onClick={() => handleSelect(index)}
                   animate={{ scale: 1, y: 0 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                  className={`relative mx-auto w-fit max-w-full overflow-hidden rounded-[24px] border bg-[linear-gradient(180deg,rgba(255,253,250,0.98),rgba(244,236,228,0.94))] p-1 text-left shadow-[inset_0_1px_0_rgba(255,255,255,0.5)] ${
-                    isActive
-                      ? "border-[rgba(184,143,115,0.55)] shadow-[0_18px_30px_rgba(91,67,49,0.12)]"
-                      : "border-[rgba(88,74,64,0.08)]"
-                  }`}
+                  className="relative overflow-hidden rounded-[24px] text-left"
                 >
-                  <div className="flex min-h-[165px] items-center justify-center sm:min-h-[195px] lg:min-h-[240px]">
+                  <div className="flex min-h-[150px] items-center justify-center sm:min-h-[180px]">
                     <img
                       src={photo.src}
                       alt={photo.alt}
-                      className="block h-auto max-h-[calc(165px-1rem)] w-auto max-w-full rounded-[18px] object-contain sm:max-h-[calc(195px-1rem)] lg:max-h-[calc(240px-1rem)]"
+                      className="block h-auto max-h-[149px] w-auto max-w-full rounded-[18px] object-contain sm:max-h-[179px]"
                       loading="lazy"
                       decoding="async"
                     />
                   </div>
-                  <div
-                    className={`pointer-events-none absolute inset-0 transition duration-300 ${
-                      isActive
-                        ? "bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(23,18,14,0.18))]"
-                        : "bg-[linear-gradient(180deg,rgba(255,255,255,0),rgba(23,18,14,0.06))]"
-                    }`}
-                  />
                 </motion.button>
               );
             })}
@@ -126,7 +115,8 @@ export function GallerySection({ photos }: GallerySectionProps) {
                 type="button"
                 onClick={goPrev}
                 disabled={isPrevDisabled}
-                className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition ${
+                aria-label="Show previous gallery photos"
+                className={`inline-flex min-h-11 items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition ${
                   isPrevDisabled
                     ? "cursor-default text-muted/45"
                     : "text-text hover:text-accent"
@@ -142,7 +132,8 @@ export function GallerySection({ photos }: GallerySectionProps) {
                 type="button"
                 onClick={goNext}
                 disabled={isNextDisabled}
-                className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition ${
+                aria-label="Show next gallery photos"
+                className={`inline-flex min-h-11 items-center gap-2 rounded-full px-3 py-2 text-sm font-medium transition ${
                   isNextDisabled
                     ? "cursor-default text-muted/45"
                     : "text-text hover:text-accent"
