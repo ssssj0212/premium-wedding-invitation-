@@ -16,7 +16,10 @@ const THUMBS_PER_PAGE = 4;
 
 export function GallerySection({ photos }: GallerySectionProps) {
   const safePhotos = useMemo(
-    () => (photos.length ? photos : [{ src: "", alt: "Wedding gallery image" }]),
+    () =>
+      photos.length
+        ? photos
+        : [{ src: "", alt: "Wedding gallery image", width: 1, height: 1 }],
     [photos]
   );
   const [activeIndex, setActiveIndex] = useState(0);
@@ -62,24 +65,25 @@ export function GallerySection({ photos }: GallerySectionProps) {
       />
 
       <div className="mt-8 grid gap-4">
-        <motion.button
+        <motion.div
           key={activePhoto.src || `${currentActiveIndex}`}
-          type="button"
-          initial={{ opacity: 0.75, y: 14 }}
+          initial={{ opacity: 0.76, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
           className="group relative overflow-hidden rounded-[30px] text-left"
         >
           <div className="flex min-h-[320px] items-center justify-center sm:min-h-[390px]">
             <img
               src={activePhoto.src}
               alt={activePhoto.alt}
+              width={activePhoto.width}
+              height={activePhoto.height}
               className="block h-auto max-h-[319px] w-auto max-w-full rounded-[24px] object-contain sm:max-h-[389px]"
               loading="lazy"
               decoding="async"
             />
           </div>
-        </motion.button>
+        </motion.div>
 
         <div className="flex min-h-full flex-col gap-4">
           <div className="grid grid-cols-2 gap-3">
@@ -90,13 +94,16 @@ export function GallerySection({ photos }: GallerySectionProps) {
                   type="button"
                   onClick={() => handleSelect(index)}
                   animate={{ scale: 1, y: 0 }}
-                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
                   className="relative overflow-hidden rounded-[24px] text-left"
+                  aria-label={`View ${photo.alt}`}
                 >
                   <div className="flex min-h-[150px] items-center justify-center sm:min-h-[180px]">
                     <img
                       src={photo.src}
                       alt={photo.alt}
+                      width={photo.width}
+                      height={photo.height}
                       className="block h-auto max-h-[149px] w-auto max-w-full rounded-[18px] object-contain sm:max-h-[179px]"
                       loading="lazy"
                       decoding="async"
