@@ -1,8 +1,8 @@
 "use client";
-/* eslint-disable @next/next/no-img-element */
 
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import { PhotoItem } from "@/content/photos";
 import { SectionHeading } from "@/components/section-heading";
@@ -16,7 +16,10 @@ const THUMBS_PER_PAGE = 4;
 
 export function GallerySection({ photos }: GallerySectionProps) {
   const safePhotos = useMemo(
-    () => (photos.length ? photos : [{ src: "", alt: "Wedding gallery image" }]),
+    () =>
+      photos.length
+        ? photos
+        : [{ src: "", alt: "Wedding gallery image", width: 1200, height: 1600 }],
     [photos]
   );
   const [activeIndex, setActiveIndex] = useState(0);
@@ -71,12 +74,15 @@ export function GallerySection({ photos }: GallerySectionProps) {
           className="group relative overflow-hidden rounded-[30px] text-left"
         >
           <div className="flex min-h-[320px] items-center justify-center sm:min-h-[390px]">
-            <img
+            <Image
               src={activePhoto.src}
               alt={activePhoto.alt}
+              width={activePhoto.width}
+              height={activePhoto.height}
+              sizes="(max-width: 768px) 92vw, 720px"
+              quality={80}
               className="block h-auto max-h-[319px] w-auto max-w-full rounded-[24px] object-contain sm:max-h-[389px]"
               loading="lazy"
-              decoding="async"
             />
           </div>
         </motion.button>
@@ -96,12 +102,15 @@ export function GallerySection({ photos }: GallerySectionProps) {
                   className="relative overflow-hidden rounded-[24px] text-left"
                 >
                   <div className="flex min-h-[150px] items-center justify-center sm:min-h-[180px]">
-                    <img
+                    <Image
                       src={photo.src}
                       alt={photo.alt}
+                      width={photo.width}
+                      height={photo.height}
+                      sizes="96px"
+                      quality={78}
                       className="block h-auto max-h-[149px] w-auto max-w-full rounded-[18px] object-contain sm:max-h-[179px]"
                       loading="lazy"
-                      decoding="async"
                     />
                   </div>
                 </motion.button>
