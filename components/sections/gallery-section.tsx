@@ -23,6 +23,8 @@ export function GallerySection({ photos }: GallerySectionProps) {
     [photos]
   );
   const [activeIndex, setActiveIndex] = useState(0);
+  const [displayIndex, setDisplayIndex] = useState(0);
+  const [pendingIndex, setPendingIndex] = useState<number | null>(null);
   const [page, setPage] = useState(0);
 
   const totalPages = Math.max(1, Math.ceil(safePhotos.length / THUMBS_PER_PAGE));
@@ -38,10 +40,20 @@ export function GallerySection({ photos }: GallerySectionProps) {
   }, [currentPage, safePhotos]);
 
   const activePhoto = safePhotos[currentActiveIndex] ?? safePhotos[0];
+  const displayPhoto = safePhotos[Math.min(displayIndex, safePhotos.length - 1)] ?? safePhotos[0];
+  const pendingPhoto =
+    pendingIndex !== null ? safePhotos[Math.min(pendingIndex, safePhotos.length - 1)] : null;
 
   const handleSelect = (index: number) => {
     setActiveIndex(index);
     setPage(Math.floor(index / THUMBS_PER_PAGE));
+
+    if (index === displayIndex) {
+      setPendingIndex(null);
+      return;
+    }
+
+    setPendingIndex(index);
   };
 
   const goPrev = () => {
@@ -66,24 +78,44 @@ export function GallerySection({ photos }: GallerySectionProps) {
 
       <div className="mt-8 grid gap-4">
         <motion.button
-          key={activePhoto.src || `${currentActiveIndex}`}
           type="button"
           initial={{ opacity: 0.75, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="group relative overflow-hidden rounded-[30px] text-left"
+          className="group relative mx-auto w-[92vw] max-w-[720px] overflow-hidden rounded-[30px] bg-transparent p-0 text-left shadow-none"
         >
-          <div className="flex min-h-[320px] items-center justify-center sm:min-h-[390px]">
+          <div className="relative flex items-center justify-center bg-transparent">
             <Image
-              src={activePhoto.src}
-              alt={activePhoto.alt}
-              width={activePhoto.width}
-              height={activePhoto.height}
+              src={displayPhoto.src}
+              alt={displayPhoto.alt}
+              width={displayPhoto.width}
+              height={displayPhoto.height}
               sizes="(max-width: 768px) 92vw, 720px"
               quality={80}
-              className="block h-auto max-h-[319px] w-auto max-w-full rounded-[24px] object-contain sm:max-h-[389px]"
+              className="block h-auto w-full rounded-[24px] object-contain shadow-[0_20px_50px_rgba(70,52,39,0.12)]"
               loading="lazy"
             />
+
+            {pendingPhoto ? (
+              <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-transparent">
+                <Image
+                  src={pendingPhoto.src}
+                  alt={pendingPhoto.alt}
+                  width={pendingPhoto.width}
+                  height={pendingPhoto.height}
+                  sizes="(max-width: 768px) 92vw, 720px"
+                  quality={80}
+                  className="block h-auto w-full rounded-[24px] object-contain shadow-[0_20px_50px_rgba(70,52,39,0.12)]"
+                  loading="eager"
+                  onLoad={() => {
+                    if (pendingIndex !== null) {
+                      setDisplayIndex(pendingIndex);
+                      setPendingIndex(null);
+                    }
+                  }}
+                />
+              </div>
+            ) : null}
           </div>
         </motion.button>
 
@@ -99,9 +131,9 @@ export function GallerySection({ photos }: GallerySectionProps) {
                   onClick={() => handleSelect(index)}
                   animate={{ scale: 1, y: 0 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative overflow-hidden rounded-[24px] text-left"
+                  className="relative overflow-hidden rounded-[24px] bg-transparent p-0 text-left shadow-none"
                 >
-                  <div className="flex min-h-[150px] items-center justify-center sm:min-h-[180px]">
+                  <div className="flex items-center justify-center bg-transparent">
                     <Image
                       src={photo.src}
                       alt={photo.alt}
@@ -109,7 +141,7 @@ export function GallerySection({ photos }: GallerySectionProps) {
                       height={photo.height}
                       sizes="96px"
                       quality={78}
-                      className="block h-auto max-h-[149px] w-auto max-w-full rounded-[18px] object-contain sm:max-h-[179px]"
+                      className="block h-auto w-full rounded-[18px] object-contain shadow-[0_14px_30px_rgba(70,52,39,0.08)]"
                       loading="lazy"
                     />
                   </div>
