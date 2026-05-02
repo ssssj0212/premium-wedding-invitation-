@@ -1,8 +1,8 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Image from "next/image";
 import { useMemo, useState } from "react";
 import { PhotoItem } from "@/content/photos";
 import { SectionHeading } from "@/components/section-heading";
@@ -16,15 +16,10 @@ const THUMBS_PER_PAGE = 4;
 
 export function GallerySection({ photos }: GallerySectionProps) {
   const safePhotos = useMemo(
-    () =>
-      photos.length
-        ? photos
-        : [{ src: "", alt: "Wedding gallery image", width: 1200, height: 1600 }],
+    () => (photos.length ? photos : [{ src: "", alt: "Wedding gallery image" }]),
     [photos]
   );
   const [activeIndex, setActiveIndex] = useState(0);
-  const [displayIndex, setDisplayIndex] = useState(0);
-  const [pendingIndex, setPendingIndex] = useState<number | null>(null);
   const [page, setPage] = useState(0);
 
   const totalPages = Math.max(1, Math.ceil(safePhotos.length / THUMBS_PER_PAGE));
@@ -40,20 +35,10 @@ export function GallerySection({ photos }: GallerySectionProps) {
   }, [currentPage, safePhotos]);
 
   const activePhoto = safePhotos[currentActiveIndex] ?? safePhotos[0];
-  const displayPhoto = safePhotos[Math.min(displayIndex, safePhotos.length - 1)] ?? safePhotos[0];
-  const pendingPhoto =
-    pendingIndex !== null ? safePhotos[Math.min(pendingIndex, safePhotos.length - 1)] : null;
 
   const handleSelect = (index: number) => {
     setActiveIndex(index);
     setPage(Math.floor(index / THUMBS_PER_PAGE));
-
-    if (index === displayIndex) {
-      setPendingIndex(null);
-      return;
-    }
-
-    setPendingIndex(index);
   };
 
   const goPrev = () => {
@@ -78,52 +63,27 @@ export function GallerySection({ photos }: GallerySectionProps) {
 
       <div className="mt-8 grid gap-4">
         <motion.button
+          key={activePhoto.src || `${currentActiveIndex}`}
           type="button"
           initial={{ opacity: 0.75, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="group relative mx-auto w-[92vw] max-w-[720px] overflow-hidden rounded-[30px] bg-transparent p-0 text-left shadow-none"
+          className="group relative overflow-hidden rounded-[30px] text-left"
         >
-          <div className="relative flex items-center justify-center bg-transparent">
-            <Image
-              src={displayPhoto.src}
-              alt={displayPhoto.alt}
-              width={displayPhoto.width}
-              height={displayPhoto.height}
-              sizes="(max-width: 768px) 92vw, 720px"
-              quality={80}
-              className="block h-auto w-full rounded-[24px] object-contain shadow-[0_20px_50px_rgba(70,52,39,0.12)]"
+          <div className="flex min-h-[320px] items-center justify-center sm:min-h-[390px]">
+            <img
+              src={activePhoto.src}
+              alt={activePhoto.alt}
+              className="block h-auto max-h-[319px] w-auto max-w-full rounded-[24px] object-contain sm:max-h-[389px]"
               loading="lazy"
+              decoding="async"
             />
-
-            {pendingPhoto ? (
-              <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-transparent">
-                <Image
-                  src={pendingPhoto.src}
-                  alt={pendingPhoto.alt}
-                  width={pendingPhoto.width}
-                  height={pendingPhoto.height}
-                  sizes="(max-width: 768px) 92vw, 720px"
-                  quality={80}
-                  className="block h-auto w-full rounded-[24px] object-contain shadow-[0_20px_50px_rgba(70,52,39,0.12)]"
-                  loading="eager"
-                  onLoad={() => {
-                    if (pendingIndex !== null) {
-                      setDisplayIndex(pendingIndex);
-                      setPendingIndex(null);
-                    }
-                  }}
-                />
-              </div>
-            ) : null}
           </div>
         </motion.button>
 
         <div className="flex min-h-full flex-col gap-4">
           <div className="grid grid-cols-2 gap-3">
             {visibleThumbs.map(({ photo, index }) => {
-              const isActive = index === currentActiveIndex;
-
               return (
                 <motion.button
                   key={`${photo.src}-${index}`}
@@ -131,18 +91,15 @@ export function GallerySection({ photos }: GallerySectionProps) {
                   onClick={() => handleSelect(index)}
                   animate={{ scale: 1, y: 0 }}
                   transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                  className="relative overflow-hidden rounded-[24px] bg-transparent p-0 text-left shadow-none"
+                  className="relative overflow-hidden rounded-[24px] text-left"
                 >
-                  <div className="flex items-center justify-center bg-transparent">
-                    <Image
+                  <div className="flex min-h-[150px] items-center justify-center sm:min-h-[180px]">
+                    <img
                       src={photo.src}
                       alt={photo.alt}
-                      width={photo.width}
-                      height={photo.height}
-                      sizes="96px"
-                      quality={78}
-                      className="block h-auto w-full rounded-[18px] object-contain shadow-[0_14px_30px_rgba(70,52,39,0.08)]"
+                      className="block h-auto max-h-[149px] w-auto max-w-full rounded-[18px] object-contain sm:max-h-[179px]"
                       loading="lazy"
+                      decoding="async"
                     />
                   </div>
                 </motion.button>
