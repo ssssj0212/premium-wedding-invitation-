@@ -16,10 +16,10 @@ export function InvitationSection() {
         align="center"
       />
       <div className="mx-auto mt-10 max-w-full text-center">
-        <p className="font-serif text-[clamp(1.8rem,8.4vw,2.35rem)] font-medium leading-[1.08] tracking-[-0.035em] text-text">
+        <p className="whitespace-nowrap font-serif text-[clamp(1.38rem,6.1vw,1.72rem)] font-medium leading-[1.08] tracking-[-0.025em] text-text">
           {siteContent.couple.groomName} &amp; {siteContent.couple.brideName}
         </p>
-        <div className="balanced-copy editorial-body mt-8 space-y-5">
+        <div className="balanced-copy mt-7 space-y-4 font-sans text-[clamp(15px,3.8vw,16px)] leading-[1.68] tracking-[-0.01em] text-muted">
           {storyContent.messageParagraphs.map((paragraph) => (
             <p key={paragraph}>{paragraph}</p>
           ))}

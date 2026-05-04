@@ -11,12 +11,14 @@ type ContactSectionProps = {
 export function ContactSection({ contacts }: ContactSectionProps) {
   return (
     <SectionShell id="contacts">
-      <SectionHeading
-        eyebrow="Registry & Gifts"
-        title="Your presence at our celebration is the greatest gift."
-        description="If you would still like to send a gift, our Zelle information is listed below."
-        align="center"
-      />
+      <div className="[&_h2]:max-w-[18rem] [&_h2]:text-[clamp(1.34rem,5.9vw,1.68rem)] [&_h2]:leading-[1.12] [&_p.editorial-body]:max-w-[18rem] [&_p.editorial-body]:font-sans [&_p.editorial-body]:text-[clamp(14px,3.6vw,15px)] [&_p.editorial-body]:leading-[1.55]">
+        <SectionHeading
+          eyebrow="Registry & Gifts"
+          title="Your presence at our celebration is the greatest gift."
+          description="If you would still like to send a gift, our Zelle information is listed below."
+          align="center"
+        />
+      </div>
       <div className="mx-auto mt-8 grid w-full max-w-full gap-4">
         {contacts.map((contact) => (
           <div

@@ -78,9 +78,9 @@ export function HeroSection() {
           transition={{ duration: 1.15, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           className="relative z-10 mx-auto mt-1 w-full max-w-[17.25rem] px-3 pb-4 pt-0 text-center"
         >
-          <div className="mx-auto grid max-w-[16.35rem] grid-cols-2 items-baseline justify-items-center gap-x-4">
+          <div className="mx-auto grid max-w-[16.35rem] grid-cols-[auto_auto] items-baseline justify-center gap-x-8">
             <div className="inline-flex items-baseline justify-center gap-[0.45rem] whitespace-nowrap">
-              <span className="text-[clamp(0.64rem,1.95vw,0.7rem)] font-medium tracking-[0.07em] text-[#8a7969]">
+              <span className="font-sans text-[clamp(0.64rem,1.95vw,0.7rem)] font-medium tracking-[0.07em] text-[#8a7969]">
                 Groom
               </span>
               <span className="font-serif text-[clamp(1.12rem,3.45vw,1.24rem)] font-medium tracking-[-0.018em] text-[#746252]">
@@ -88,7 +88,7 @@ export function HeroSection() {
               </span>
             </div>
             <div className="inline-flex items-baseline justify-center gap-[0.45rem] whitespace-nowrap">
-              <span className="text-[clamp(0.64rem,1.95vw,0.7rem)] font-medium tracking-[0.07em] text-[#8a7969]">
+              <span className="font-sans text-[clamp(0.64rem,1.95vw,0.7rem)] font-medium tracking-[0.07em] text-[#8a7969]">
                 Bride
               </span>
               <span className="font-serif text-[clamp(1.12rem,3.45vw,1.24rem)] font-medium tracking-[-0.018em] text-[#746252]">
@@ -98,7 +98,7 @@ export function HeroSection() {
           </div>
           <div className="mx-auto mt-3 h-px w-5 bg-[linear-gradient(90deg,transparent,rgba(181,150,114,0.34),transparent)]" />
           <div className="mt-2.5 space-y-[0.28rem] text-center text-[#7d6b5c]">
-            <p className="whitespace-nowrap font-medium tracking-[0.14em] text-[clamp(0.7rem,2.08vw,0.76rem)]">
+            <p className="whitespace-nowrap font-sans text-[clamp(0.7rem,2.08vw,0.76rem)] font-medium tracking-[0.14em]">
               06. 13. 2026
             </p>
             <p className="whitespace-nowrap font-serif text-[clamp(0.82rem,2.38vw,0.9rem)] font-medium tracking-[-0.012em] text-[#746252]">

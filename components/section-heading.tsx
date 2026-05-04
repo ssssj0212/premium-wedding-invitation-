@@ -16,14 +16,14 @@ export function SectionHeading({
     ? "mx-auto max-w-[30ch] font-serif text-[clamp(1.5rem,6.8vw,1.9rem)] font-medium leading-[1.14] tracking-[-0.025em] text-text sm:max-w-[32ch]"
     : "max-w-[28ch] font-serif text-[clamp(1.5rem,6.8vw,1.9rem)] font-medium leading-[1.14] tracking-[-0.025em] text-text sm:max-w-[32ch]";
   const descriptionClassName = isCenter
-    ? "balanced-copy editorial-body mx-auto mt-4 max-w-full"
-    : "balanced-copy editorial-body mt-4 max-w-full";
+    ? "balanced-copy editorial-body mx-auto mt-4 max-w-full font-sans"
+    : "balanced-copy editorial-body mt-4 max-w-full font-sans";
 
   return (
     <div className={isCenter ? "mx-auto w-full text-center" : "w-full text-left"}>
       {eyebrow ? (
         <p
-          className={`ornament mb-4 inline-flex luxury-kicker text-accent ${
+          className={`ornament mb-4 inline-flex font-sans luxury-kicker text-accent ${
             isCenter ? "mx-auto" : ""
           }`}
         >
