@@ -6,7 +6,7 @@ import { useState } from "react";
 import { rsvpFormContent } from "@/content/rsvp";
 import { cn } from "@/lib/utils";
 
-type Attendance = "Attending" | "Undecided";
+type Attendance = "Attending" | "Undecided" | "Unable to Attend";
 type GuestCount = "1" | "2" | "3";
 type Step = "attendance" | "count" | "names" | "note" | "thanks";
 
@@ -120,7 +120,7 @@ export function CustomRsvpForm() {
     resetError();
     if (attendance === "Attending") {
       setStep("count");
-    } else if (attendance === "Undecided") {
+    } else if (attendance === "Undecided" || attendance === "Unable to Attend") {
       setStep("note");
     }
   };
@@ -143,7 +143,7 @@ export function CustomRsvpForm() {
       guest1Name: attendance === "Attending" ? visibleGuestNames[0]?.trim() ?? "" : "",
       guest2Name: attendance === "Attending" ? visibleGuestNames[1]?.trim() ?? "" : "",
       guest3Name: attendance === "Attending" ? visibleGuestNames[2]?.trim() ?? "" : "",
-      reason: attendance === "Undecided" ? note.trim() : "",
+      reason: attendance === "Undecided" || attendance === "Unable to Attend" ? note.trim() : "",
       message: attendance === "Attending" ? message.trim() : "",
       entrees: entreeSummary,
       ENTREES: entreeSummary,
@@ -194,7 +194,9 @@ export function CustomRsvpForm() {
                   ? copy.guestCountTitle
                   : step === "names"
                     ? copy.guestNamesTitle
-                    : copy.undecidedTitle}
+                    : attendance === "Unable to Attend"
+                      ? copy.unableToAttendTitle
+                      : copy.undecidedTitle}
             </h1>
             <p className="mx-auto mt-4 max-w-[28ch] text-[16px] leading-7 text-muted">
               {step === "attendance"
@@ -203,7 +205,9 @@ export function CustomRsvpForm() {
                   ? copy.guestCountDescription
                   : step === "names"
                     ? copy.guestNamesDescription
-                    : copy.undecidedNoteDescription}
+                    : attendance === "Unable to Attend"
+                      ? copy.unableToAttendNoteDescription
+                      : copy.undecidedNoteDescription}
             </p>
           </div>
         ) : null}
@@ -232,6 +236,15 @@ export function CustomRsvpForm() {
                     description={copy.undecidedDescription}
                     onClick={() => {
                       setAttendance("Undecided");
+                      resetError();
+                    }}
+                  />
+                  <OptionCard
+                    selected={attendance === "Unable to Attend"}
+                    title={copy.unableToAttendLabel}
+                    description={copy.unableToAttendDescription}
+                    onClick={() => {
+                      setAttendance("Unable to Attend");
                       resetError();
                     }}
                   />
