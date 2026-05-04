@@ -21,7 +21,7 @@ export const metaContent = validateContent(metaSchema, {
   locale: "en",
   ogTitle: "Sejin Shin & Shinhye Kim | Wedding Invitation",
   ogDescription: "Join us as we celebrate our wedding day with love, warmth, and gratitude.",
-  ogImage: "https://sejinshinhye-wedding.vercel.app/photos/wedding-new/hero-english.jpg?v=20260504",
+  ogImage: "https://sejinshinhye-wedding-korean.vercel.app/og/link-preview-photo-only-20260429-v10.jpg",
   ogImageAlt: "Wedding invitation preview image",
   keywords: ["wedding invitation", "mobile wedding invitation", "Korean wedding invitation", "modern wedding website"]
 });
