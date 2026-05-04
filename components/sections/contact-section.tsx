@@ -1,7 +1,6 @@
 import { Phone } from "lucide-react";
 import { ContactEntry } from "@/content/contact";
 import { CopyButton } from "@/components/copy-button";
-import { SectionHeading } from "@/components/section-heading";
 import { SectionShell } from "@/components/section-shell";
 
 type ContactSectionProps = {
@@ -11,13 +10,18 @@ type ContactSectionProps = {
 export function ContactSection({ contacts }: ContactSectionProps) {
   return (
     <SectionShell id="contacts">
-      <div className="[&_h2]:max-w-[18rem] [&_h2]:text-[clamp(1.34rem,5.9vw,1.68rem)] [&_h2]:leading-[1.12] [&_p.editorial-body]:max-w-[18rem] [&_p.editorial-body]:font-sans [&_p.editorial-body]:text-[clamp(14px,3.6vw,15px)] [&_p.editorial-body]:leading-[1.55]">
-        <SectionHeading
-          eyebrow="Registry & Gifts"
-          title="Your presence at our celebration is the greatest gift."
-          description="If you would still like to send a gift, our Zelle information is listed below."
-          align="center"
-        />
+      <div className="mx-auto w-full text-center">
+        <p className="ornament mb-4 inline-flex font-sans luxury-kicker text-accent">
+          Registry & Gifts
+        </p>
+        <h2 className="mx-auto max-w-[19.6rem] font-serif text-[clamp(1.31rem,5.65vw,1.62rem)] font-medium leading-[1.14] tracking-[-0.025em] text-text">
+          <span className="block">Your presence at our</span>
+          <span className="block">celebration is the greatest gift.</span>
+        </h2>
+        <p className="balanced-copy mx-auto mt-4 max-w-[20.4rem] font-sans text-[clamp(13.8px,3.55vw,14.8px)] leading-[1.55] tracking-[-0.01em] text-muted">
+          <span className="block">If you would still like to send a gift, our</span>
+          <span className="block">Zelle information is listed below.</span>
+        </p>
       </div>
       <div className="mx-auto mt-8 grid w-full max-w-full gap-4">
         {contacts.map((contact) => (
