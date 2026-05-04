@@ -33,7 +33,7 @@ export function HeroSection() {
       <div className="relative grid gap-0">
         <motion.div
           initial={false}
-          className="hero-light-leak relative aspect-[2/3] overflow-hidden rounded-t-[30px] rounded-b-none"
+          className="hero-light-leak relative h-[clamp(29.9rem,calc((100vw-3.5rem)*1.5),35rem)] overflow-hidden rounded-t-[30px] rounded-b-none sm:aspect-[2/3] sm:h-auto"
         >
           <ImageCard
             src={heroPhoto?.src ?? ""}
