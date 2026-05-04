@@ -10,6 +10,12 @@ type Attendance = "Attending" | "Undecided";
 type GuestCount = "1" | "2" | "3";
 type Step = "attendance" | "count" | "names" | "note" | "thanks";
 
+const entreeOptions = [
+  "NY Strip Steak",
+  "Big Eye Tuna with Horta and Roasted Beets",
+  "Jumbo Shrimp with moussaka"
+] as const;
+
 const appsScriptEndpoint =
   "https://script.google.com/macros/s/AKfycbyE5n5XuZ4c3UakjxFxm1GQ2KFT1uKGTM5tEmaIsvBkpLCVlu7e8cwZqnjP0-hbK76W/exec";
 
@@ -94,6 +100,8 @@ export function CustomRsvpForm() {
   const [attendance, setAttendance] = useState<Attendance | "">("");
   const [guestCount, setGuestCount] = useState<GuestCount | "">("");
   const [guestNames, setGuestNames] = useState(["", "", ""]);
+  const [guestEntrees, setGuestEntrees] = useState(["", "", ""]);
+  const [message, setMessage] = useState("");
   const [note, setNote] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [submittedType, setSubmittedType] = useState<Attendance | "">("");
@@ -101,7 +109,10 @@ export function CustomRsvpForm() {
 
   const requiredNameCount = guestCount ? Number(guestCount) : 0;
   const visibleGuestNames = guestNames.slice(0, requiredNameCount);
+  const visibleGuestEntrees = guestEntrees.slice(0, requiredNameCount);
   const namesAreValid = requiredNameCount > 0 && visibleGuestNames.every((name) => name.trim().length > 0);
+  const entreesAreValid =
+    requiredNameCount > 0 && visibleGuestEntrees.every((entree) => entree.trim().length > 0);
 
   const resetError = () => setError("");
 
@@ -118,6 +129,14 @@ export function CustomRsvpForm() {
     resetError();
     setSubmitting(true);
 
+    const entreeSummary =
+      attendance === "Attending"
+        ? visibleGuestNames
+            .map((name, index) => `${name.trim()}: ${visibleGuestEntrees[index]?.trim() ?? ""}`)
+            .filter(Boolean)
+            .join("\n")
+        : "";
+
     const payload = {
       attending: attendance,
       numberOfGuests: attendance === "Attending" ? guestCount : "",
@@ -125,7 +144,9 @@ export function CustomRsvpForm() {
       guest2Name: attendance === "Attending" ? visibleGuestNames[1]?.trim() ?? "" : "",
       guest3Name: attendance === "Attending" ? visibleGuestNames[2]?.trim() ?? "" : "",
       reason: attendance === "Undecided" ? note.trim() : "",
-      message: "",
+      message: attendance === "Attending" ? message.trim() : "",
+      entrees: entreeSummary,
+      ENTREES: entreeSummary,
       source: "us-wedding-site"
     };
 
@@ -266,28 +287,79 @@ export function CustomRsvpForm() {
             <>
               <div className="space-y-5">
                 {Array.from({ length: requiredNameCount }).map((_, index) => (
-                  <TextInput
-                    key={index}
-                    label={`Guest ${index + 1} Full Name`}
-                    value={guestNames[index] ?? ""}
-                    autoComplete={index === 0 ? "name" : undefined}
-                    onChange={(value) => {
-                      setGuestNames((current) => {
-                        const next = [...current];
-                        next[index] = value;
-                        return next;
-                      });
+                  <div key={index} className="space-y-4">
+                    <TextInput
+                      label={`Guest ${index + 1} Full Name`}
+                      value={guestNames[index] ?? ""}
+                      autoComplete={index === 0 ? "name" : undefined}
+                      onChange={(value) => {
+                        setGuestNames((current) => {
+                          const next = [...current];
+                          next[index] = value;
+                          return next;
+                        });
+                        resetError();
+                      }}
+                    />
+                    <label className="block">
+                      <span className="luxury-kicker block text-muted">
+                        {copy.entreeLabel} for Guest {index + 1}
+                      </span>
+                      <select
+                        value={guestEntrees[index] ?? ""}
+                        onChange={(event) => {
+                          setGuestEntrees((current) => {
+                            const next = [...current];
+                            next[index] = event.target.value;
+                            return next;
+                          });
+                          resetError();
+                        }}
+                        required
+                        className="mt-3 h-12 w-full rounded-2xl border border-line bg-white/75 px-4 text-[16px] text-text outline-none transition focus:border-[#b89a80] focus:bg-white focus:shadow-[0_0_0_4px_rgba(184,154,128,0.14)]"
+                      >
+                        <option value="">{copy.entreePlaceholder}</option>
+                        {entreeOptions.map((option) => (
+                          <option key={option} value={option}>
+                            {option}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                ))}
+                <label className="block">
+                  <span className="luxury-kicker block text-muted">{copy.messageLabel}</span>
+                  <p className="mt-2 text-[14px] leading-6 text-muted">{copy.messageHelperText}</p>
+                  <textarea
+                    value={message}
+                    onChange={(event) => {
+                      setMessage(event.target.value);
                       resetError();
                     }}
+                    rows={4}
+                    className="mt-3 min-h-28 w-full resize-none rounded-[22px] border border-line bg-white/75 px-4 py-4 text-[16px] leading-7 text-text outline-none transition placeholder:text-muted/55 focus:border-[#b89a80] focus:bg-white focus:shadow-[0_0_0_4px_rgba(184,154,128,0.14)]"
+                    placeholder="Optional message"
                   />
-                ))}
+                </label>
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <button type="button" disabled={submitting} onClick={() => setStep("count")} className={secondaryButtonClass}>
                   <ArrowLeft className="h-4 w-4" />
                   {copy.back}
                 </button>
-                <button type="button" disabled={!namesAreValid || submitting} onClick={submit} className={primaryButtonClass}>
+                <button
+                  type="button"
+                  disabled={!namesAreValid || !entreesAreValid || submitting}
+                  onClick={() => {
+                    if (!entreesAreValid) {
+                      setError(copy.entreeValidationMessage);
+                      return;
+                    }
+                    submit();
+                  }}
+                  className={primaryButtonClass}
+                >
                   {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                   {copy.submitRsvp}
                 </button>

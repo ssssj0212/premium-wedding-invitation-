@@ -7,6 +7,7 @@ type RsvpPayload = {
   attendance?: Attendance;
   guestCount?: GuestCount | "";
   guestNames?: string[];
+  guestEntrees?: string[];
   note?: string;
 };
 
@@ -18,6 +19,7 @@ type AppsScriptPayload = {
   guest3Name: string;
   reason: string;
   message: string;
+  entrees: string;
   source: "us-wedding-site";
 };
 
@@ -61,9 +63,14 @@ function buildAppsScriptPayload(payload: Required<Pick<RsvpPayload, "attendance"
       guest3Name: "",
       reason: payload.note?.trim() ?? "",
       message: "",
+      entrees: "",
       source: "us-wedding-site"
     };
   }
+
+  const normalizedEntrees = Array.isArray(payload.guestEntrees)
+    ? payload.guestEntrees.map((entree) => entree.trim())
+    : [];
 
   return {
     attending: "Attending",
@@ -73,6 +80,10 @@ function buildAppsScriptPayload(payload: Required<Pick<RsvpPayload, "attendance"
     guest3Name: normalizedNames[2] ?? "",
     reason: "",
     message: "",
+    entrees: normalizedNames
+      .map((name, index) => (name ? `${name}: ${normalizedEntrees[index] ?? ""}` : ""))
+      .filter(Boolean)
+      .join("\n"),
     source: "us-wedding-site"
   };
 }
@@ -127,9 +138,16 @@ export async function POST(request: Request) {
       const guestNames = Array.isArray(payload.guestNames)
         ? payload.guestNames.slice(0, requiredCount).map((name) => name.trim())
         : [];
+      const guestEntrees = Array.isArray(payload.guestEntrees)
+        ? payload.guestEntrees.slice(0, requiredCount).map((entree) => entree.trim())
+        : [];
 
       if (guestNames.length !== requiredCount || guestNames.some((name) => !name)) {
         return jsonError("Please enter each guest name.");
+      }
+
+      if (guestEntrees.length !== requiredCount || guestEntrees.some((entree) => !entree)) {
+        return jsonError("Please choose an entree for each guest.");
       }
     } else if (!payload.note?.trim()) {
       return jsonError("Please leave a short note.");
