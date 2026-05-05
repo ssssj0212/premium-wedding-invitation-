@@ -110,6 +110,7 @@ export function CustomRsvpForm() {
   const requiredNameCount = guestCount ? Number(guestCount) : 0;
   const visibleGuestNames = guestNames.slice(0, requiredNameCount);
   const visibleGuestEntrees = guestEntrees.slice(0, requiredNameCount);
+  const nonAttendingName = guestNames[0]?.trim() ?? "";
   const namesAreValid = requiredNameCount > 0 && visibleGuestNames.every((name) => name.trim().length > 0);
   const entreesAreValid =
     requiredNameCount > 0 && visibleGuestEntrees.every((entree) => entree.trim().length > 0);
@@ -140,7 +141,7 @@ export function CustomRsvpForm() {
     const payload = {
       attending: attendance,
       numberOfGuests: attendance === "Attending" ? guestCount : "",
-      guest1Name: attendance === "Attending" ? visibleGuestNames[0]?.trim() ?? "" : "",
+      guest1Name: attendance === "Attending" ? visibleGuestNames[0]?.trim() ?? "" : nonAttendingName,
       guest2Name: attendance === "Attending" ? visibleGuestNames[1]?.trim() ?? "" : "",
       guest3Name: attendance === "Attending" ? visibleGuestNames[2]?.trim() ?? "" : "",
       reason: attendance === "Undecided" || attendance === "Unable to Attend" ? note.trim() : "",
@@ -382,6 +383,19 @@ export function CustomRsvpForm() {
 
           {step === "note" ? (
             <>
+              <TextInput
+                label="Full Name"
+                value={guestNames[0] ?? ""}
+                autoComplete="name"
+                onChange={(value) => {
+                  setGuestNames((current) => {
+                    const next = [...current];
+                    next[0] = value;
+                    return next;
+                  });
+                  resetError();
+                }}
+              />
               <label className="block">
                 <span className="luxury-kicker block text-muted">{copy.noteLabel}</span>
                 <textarea
@@ -401,7 +415,7 @@ export function CustomRsvpForm() {
                   <ArrowLeft className="h-4 w-4" />
                   {copy.back}
                 </button>
-                <button type="button" disabled={!note.trim() || submitting} onClick={submit} className={primaryButtonClass}>
+                <button type="button" disabled={!nonAttendingName || !note.trim() || submitting} onClick={submit} className={primaryButtonClass}>
                   {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                   {copy.submitResponse}
                 </button>
