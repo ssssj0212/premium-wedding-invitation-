@@ -46,7 +46,7 @@ export const rsvpFormContent = validateContent(rsvpFormSchema, {
   copy: {
     title: "RSVP",
     subtitle: "Please let us know if you can join us.",
-    deadline: "Kindly respond by May 23, 2026.",
+    deadline: "Kindly respond by May 10, 2026.",
     intro:
       "If you are able to attend, please select Attending. If you are not sure yet, please select Undecided and leave a short note.",
     attendanceQuestion: "Will you be attending?",
@@ -68,7 +68,7 @@ export const rsvpFormContent = validateContent(rsvpFormSchema, {
     messageHelperText: "Please let us know if you have any allergies or dietary restrictions.",
     undecidedTitle: "Undecided",
     undecidedNoteDescription:
-      "No worries. Please leave us a short note, and kindly let us know your final decision by May 23, 2026.",
+      "No worries. Please leave us a short note, and kindly let us know your final decision by May 10, 2026.",
     unableToAttendTitle: "Unable to Attend",
     unableToAttendNoteDescription: "You may leave us a note if you would like.",
     noteLabel: "Reason or note",
